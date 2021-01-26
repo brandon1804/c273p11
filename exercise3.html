@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Exercise 3</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <script src="js/jquery.min.js"></script> 
+        <script src="js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#btnSubmit").click(function () {
+                    var person = {};
+                    person.name = $("[name=name]").val();
+                    person.email = $("[name=email]").val();
+                    person.postalCode = $("[name=postalCode]").val();
+                    var stringObj = JSON.stringify(person);
+                    localStorage.setItem("person", stringObj);
+
+                    var personStr = localStorage.getItem("person");
+                    var personObj = JSON.parse(personStr);
+                    var message = "";
+                    message += "Name: " + personObj.name + "<br/>";
+                    message += "Email: " + personObj.email + "<br/>";
+                    message += "PostalCode: " + personObj.postalCode + "<br/>";
+                    $("#results").html(message);
+                    return false;
+                });
+
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Registration</h2>
+            <span id="msg"></span>
+            <form id="form" method="post" action="#">
+                <div class="form-group">
+                    <label for="txtName">Name</label>
+                    <input type="text" name="name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="txtEmail">Email</label>
+                    <input type="email" name="email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="txtPostalCode">Postal Code</label>
+                    <td><input type="text" name="postalCode" placeholder="enter a 6-digit code"  class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" id="btnSubmit" value="Submit"/>
+                    <input type="reset" class="btn btn-default" value="Reset"/>
+                </div>
+            </form>
+            <div class="row" id="results">
+            </div>
+        </div>    </body>
+</html>
